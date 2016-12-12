@@ -511,6 +511,18 @@ web_task_definition = TaskDefinition(
                     Name="DB_HOST",
                     Value=GetAtt(db_instance, 'Endpoint.Address'),
                 ),
+                Environment(
+                    Name="DB_NAME",
+                    Value=db_name,
+                ),
+                Environment(
+                    Name="DB_USER",
+                    Value=db_user,
+                ),
+                Environment(
+                    Name="DB_PASSWORD",
+                    Value=db_password,
+                ),
             ],
         )
     ],
