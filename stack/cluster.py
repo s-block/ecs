@@ -513,15 +513,15 @@ web_task_definition = TaskDefinition(
                 ),
                 Environment(
                     Name="DB_NAME",
-                    Value=db_name,
+                    Value=Ref(db_name),
                 ),
                 Environment(
-                    Name="DB_USER",
-                    Value=db_user,
+                    Name="DB_USERNAME",
+                    Value=Ref(db_user),
                 ),
                 Environment(
                     Name="DB_PASSWORD",
-                    Value=db_password,
+                    Value=Ref(db_password),
                 ),
             ],
         )
