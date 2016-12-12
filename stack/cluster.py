@@ -348,7 +348,7 @@ container_instance_configuration = autoscaling.LaunchConfiguration(
                     "/etc/cfn/cfn-hup.conf": cloudformation.InitFile(
                         content=Join("", [
                             "[main]\n",
-                            "template=",
+                            "stack=",
                             Ref(AWS_STACK_ID),
                             "\n",
                             "region=",
@@ -359,7 +359,7 @@ container_instance_configuration = autoscaling.LaunchConfiguration(
                         owner="root",
                         group="root",
                     ),
-                    "/etc/cfn/hooks.d/cfn-auto-reload.conf":
+                    "/etc/cfn/hooks.d/cfn-auto-reloader.conf":
                     cloudformation.InitFile(
                         content=Join("", [
                             "[cfn-auto-reloader-hook]\n",
@@ -368,7 +368,7 @@ container_instance_configuration = autoscaling.LaunchConfiguration(
                             % container_instance_configuration_name,
                             "Metadata.AWS::CloudFormation::Init\n",
                             "action=/opt/aws/bin/cfn-init -v ",
-                            "         --stack",
+                            "         --stack ",
                             Ref(AWS_STACK_NAME),
                             "         --resource %s"
                             % container_instance_configuration_name,
@@ -403,6 +403,11 @@ container_instance_configuration = autoscaling.LaunchConfiguration(
         "yum install -y aws-cfn-bootstrap\n",
 
         "/opt/aws/bin/cfn-init -v ",
+        "         --stack ", Ref(AWS_STACK_NAME),
+        "         --resource %s " % container_instance_configuration_name,
+        "         --region ", Ref(AWS_REGION), "\n",
+        "/opt/aws/bin/cfn-signal -e $? ",
+        "         --stack ", Ref(AWS_STACK_NAME),
         "         --stack", Ref(AWS_STACK_NAME),
         "         --resource %s " % container_instance_configuration_name,
         "         --region ", Ref(AWS_REGION), "\n",
@@ -501,6 +506,10 @@ web_task_definition = TaskDefinition(
                         "/",
                         Ref(db_name),
                     ]),
+                ),
+                Environment(
+                    Name="DB_HOST",
+                    Value=GetAtt(db_instance, 'Endpoint.Address'),
                 ),
             ],
         )
