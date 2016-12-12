@@ -183,7 +183,7 @@ load_balancer = elb.LoadBalancer(
         SSLCertificateId=application_certificate,
     )],
     HealthCheck=elb.HealthCheck(
-        Target=Join("", ["HTTP:", web_worker_port, "/health-check"]),
+        Target=Join("", ["HTTP:", web_worker_port, "/healthcheck.json"]),
         HealthyThreshold="2",
         UnhealthyThreshold="2",
         Interval="100",
