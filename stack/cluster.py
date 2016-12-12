@@ -66,7 +66,7 @@ container_instance_type = Ref(template.add_parameter(Parameter(
     "ContainerInstanceType",
     Description="The container instance type",
     Type="String",
-    Default="t2.micro",
+    Default="t2.medium",
     AllowedValues=["t2.micro", "t2.small", "t2.medium"]
 )))
 
@@ -83,7 +83,7 @@ web_worker_cpu = Ref(template.add_parameter(Parameter(
     "WebWorkerCPU",
     Description="Web worker CPU units",
     Type="Number",
-    Default="512",
+    Default="1024",
 )))
 
 
@@ -91,7 +91,7 @@ web_worker_memory = Ref(template.add_parameter(Parameter(
     "WebWorkerMemory",
     Description="Web worker memory",
     Type="Number",
-    Default="700",
+    Default="2048",
 )))
 
 
@@ -115,7 +115,7 @@ desired_container_instances = Ref(template.add_parameter(Parameter(
     "DesiredScale",
     Description="Desired container instances count",
     Type="Number",
-    Default="3",
+    Default="2",
 )))
 
 

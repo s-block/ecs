@@ -18,7 +18,7 @@ from .vpc import (
 
 db_name = template.add_parameter(Parameter(
     "DatabaseName",
-    Default="app",
+    Default="dashboard",
     Description="The database name",
     Type="String",
     MinLength="1",
@@ -33,7 +33,7 @@ db_name = template.add_parameter(Parameter(
 
 db_user = template.add_parameter(Parameter(
     "DatabaseUser",
-    Default="app",
+    Default="dashboard",
     Description="The database admin account username",
     Type="String",
     MinLength="1",
@@ -59,7 +59,7 @@ db_password = template.add_parameter(Parameter(
 
 db_class = template.add_parameter(Parameter(
     "DatabaseClass",
-    Default="db.t2.small",
+    Default="db.t2.medium",
     Description="Database instance class",
     Type="String",
     AllowedValues=['db.t2.small', 'db.t2.medium'],
