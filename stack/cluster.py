@@ -126,6 +126,13 @@ app_revision = Ref(template.add_parameter(Parameter(
     Default="",
 )))
 
+key_pair_name = Ref(template.add_parameter(Parameter(
+    "KeyName",
+    Description="Name of an existing EC2 KeyPair to enable SSH access to the instance",
+    Type="String",
+    Default="",
+)))
+
 
 deploy_condition = "Deploy"
 template.add_condition(deploy_condition, Not(Equals(app_revision, "")))
@@ -396,12 +403,12 @@ container_instance_configuration = autoscaling.LaunchConfiguration(
     ),
     SecurityGroups=[Ref(container_security_group)],
     InstanceType=container_instance_type,
+    KeyName=key_pair_name,
     ImageId=FindInMap("ECSRegionMap", Ref(AWS_REGION), "AMI"),
     IamInstanceProfile=Ref(container_instance_profile),
     UserData=Base64(Join('', [
         "#!/bin/bash -xe\n",
         "yum install -y aws-cfn-bootstrap\n",
-
         "/opt/aws/bin/cfn-init -v ",
         "         --stack ", Ref(AWS_STACK_NAME),
         "         --resource %s " % container_instance_configuration_name,
