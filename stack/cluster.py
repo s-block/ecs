@@ -66,8 +66,8 @@ container_instance_type = Ref(template.add_parameter(Parameter(
     "ContainerInstanceType",
     Description="The container instance type",
     Type="String",
-    Default="t2.medium",
-    AllowedValues=["t2.micro", "t2.small", "t2.medium"]
+    Default="t2.large",
+    AllowedValues=["t2.micro", "t2.small", "t2.medium", "t2.large"]
 )))
 
 
