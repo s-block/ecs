@@ -146,6 +146,7 @@ private_nat_route = Route(
     RouteTableId=Ref(private_route_table),
     DestinationCidrBlock="0.0.0.0/0",
     NatGatewayId=Ref(nat_gateway),
+    # GatewayId=Ref(internet_gateway),
 )
 
 
