@@ -419,6 +419,7 @@ container_instance_configuration = autoscaling.LaunchConfiguration(
         "         --resource %s " % container_instance_configuration_name,
         "         --region ", Ref(AWS_REGION), "\n",
     ])),
+    # AssociatePublicIpAddress=True,
 )
 
 
