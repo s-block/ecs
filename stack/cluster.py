@@ -567,6 +567,7 @@ app_service_role = iam.Role(
                         ":RegisterInstancesWithLoadBalancer",
                         "ec2:Describe*",
                         "ec2:AuthorizeSecurityGroupIngress",
+                        "sqs:*",
                     ],
                     Resource="*",
                 )],
