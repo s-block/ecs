@@ -43,7 +43,7 @@ cache_cluster = CacheCluster(
     "RedisCacheCluster",
     template=template,
     AZMode='cross-az',
-    CacheNodeType='cache.t2.small',
+    CacheNodeType='cache.t2.micro',
     CacheSubnetGroupName=Ref(cache_subnet_group),
     Engine='redis',
     NumCacheNodes=2,
