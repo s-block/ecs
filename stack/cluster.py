@@ -36,6 +36,7 @@ from troposphere.ecs import (
 )
 
 from awacs import ecr
+from stack.elasticache import cache_cluster
 
 from .template import template
 from .vpc import (
@@ -486,8 +487,15 @@ web_task_definition = TaskDefinition(
                     Value=Ref(assets_bucket),
                 ),
                 Environment(
-                    Name="CDN_DOMAIN_NAME",
-                    Value=GetAtt(distribution, "DomainName"),
+                    Name="REDIS_URL",
+                    Value=Join("", [
+                        "redis://",
+                        GetAtt(cache_cluster, "RedisEndpoint.Address"),
+                        GetAtt(cache_cluster, "RedisEndpoint.Port")]),
+                ),
+                Environment(
+                    Name="REDIS_PORT",
+                    Value=GetAtt(cache_cluster, "RedisEndpoint.Port"),
                 ),
                 Environment(
                     Name="DOMAIN_NAME",
