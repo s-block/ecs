@@ -504,7 +504,8 @@ web_task_definition = TaskDefinition(
                         "redis://",
                         GetAtt(cache_cluster, "RedisEndpoint.Address"),
                         ":",
-                        GetAtt(cache_cluster, "RedisEndpoint.Port")]),
+                        GetAtt(cache_cluster, "RedisEndpoint.Port")
+                    ]),
                 ),
                 Environment(
                     Name="REDIS_PORT",
