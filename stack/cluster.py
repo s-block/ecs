@@ -134,6 +134,22 @@ key_pair_name = Ref(template.add_parameter(Parameter(
 )))
 
 
+float_api_token = Ref(template.add_parameter(Parameter(
+    "FloatApiToken",
+    Description="Float API token",
+    Type="String",
+    Default="",
+)))
+
+
+float_url = Ref(template.add_parameter(Parameter(
+    "FloatApiUrl",
+    Description="Float API URL",
+    Type="String",
+    Default="",
+)))
+
+
 deploy_condition = "Deploy"
 template.add_condition(deploy_condition, Not(Equals(app_revision, "")))
 
@@ -551,6 +567,14 @@ web_task_definition = TaskDefinition(
                 Environment(
                     Name="DB_PASSWORD",
                     Value=Ref(db_password),
+                ),
+                Environment(
+                    Name="FLOAT_API_TOKEN",
+                    Value=float_api_token,
+                ),
+                Environment(
+                    Name="FLOAT_URL",
+                    Value=float_url,
                 ),
             ],
         )
