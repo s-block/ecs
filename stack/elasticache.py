@@ -42,12 +42,11 @@ cache_subnet_group = SubnetGroup(
 cache_cluster = CacheCluster(
     "RedisCacheCluster",
     template=template,
-    AZMode='cross-az',
     CacheNodeType='cache.t2.micro',
     CacheSubnetGroupName=Ref(cache_subnet_group),
     Engine='redis',
-    NumCacheNodes=2,
+    NumCacheNodes=1,
     Port="6379",
-    PreferredAvailabilityZones=["eu-west-1a", "eu-west-1b", "eu-west-1c"],
+    PreferredAvailabilityZone="eu-west-1a",
     VpcSecurityGroupIds=[Ref(db_security_group)],
 )
