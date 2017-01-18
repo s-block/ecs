@@ -12,15 +12,6 @@ from troposphere.s3 import (
     VersioningConfiguration,
 )
 
-from troposphere.cloudfront import (
-    DefaultCacheBehavior,
-    Distribution,
-    DistributionConfig,
-    ForwardedValues,
-    Origin,
-    S3Origin,
-)
-
 from .template import template
 from .domain import domain_name
 
@@ -55,37 +46,4 @@ template.add_output(Output(
     "AssetsBucketDomainName",
     Description="Assets bucket domain name",
     Value=GetAtt(assets_bucket, "DomainName")
-))
-
-
-# Create a CloudFront CDN distribution
-distribution = template.add_resource(
-    Distribution(
-        'AssetsDistribution',
-        DistributionConfig=DistributionConfig(
-            Origins=[Origin(
-                Id="Assets",
-                DomainName=GetAtt(assets_bucket, "DomainName"),
-                S3OriginConfig=S3Origin(
-                    OriginAccessIdentity="",
-                ),
-            )],
-            DefaultCacheBehavior=DefaultCacheBehavior(
-                TargetOriginId="Assets",
-                ForwardedValues=ForwardedValues(
-                    QueryString=False
-                ),
-                ViewerProtocolPolicy="allow-all",
-            ),
-            Enabled=True
-        ),
-    )
-)
-
-
-# Output CloudFront url
-template.add_output(Output(
-    "AssetsDistributionDomainName",
-    Description="The assest CDN domain name",
-    Value=GetAtt(distribution, "DomainName")
 ))

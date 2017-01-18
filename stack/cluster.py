@@ -49,7 +49,6 @@ from .vpc import (
 )
 from .assets import (
     assets_bucket,
-    distribution,
 )
 from .database import (
     db_instance,
