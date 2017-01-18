@@ -290,6 +290,18 @@ container_instance_role = iam.Role(
                 )],
             ),
         ),
+        iam.Policy(
+            PolicyName="SQSManagementPolicy",
+            PolicyDocument=dict(
+                Statement=[dict(
+                    Effect="Allow",
+                    Action=[
+                        "sqs:*",
+                    ],
+                    Resource="*",
+                )],
+            ),
+        ),
     ]
 )
 
