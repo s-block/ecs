@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import json
+import yaml
+
 from stack import (
     domain,
     certificates,
@@ -12,4 +15,6 @@ from stack import (
 )
 
 if __name__ == '__main__':
-    print(cluster.template.to_json())
+    data = json.loads(cluster.template.to_json())
+
+    print(yaml.dump(data, allow_unicode=True))
